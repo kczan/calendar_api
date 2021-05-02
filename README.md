@@ -35,7 +35,7 @@ curl --location --request POST 'https://127.0.0.1:8000/api/room/' \
 Creating events:
 ****Enter the token you got earlier on to the headers****
 ```
-curl --location --request GET 'https://127.0.0.1:8000/api/event/' \
+curl --location --request POST 'https://127.0.0.1:8000/api/event/' \
 
 --header 'Authorization: Token **your token** \
 
@@ -53,7 +53,7 @@ curl --location --request GET 'https://127.0.0.1:8000/api/event/' \
 
 "end": "2021-02-09 14:00",
 
-"participants": [1],
+"participants": ["asd@test.com"],
 
 "location": 1
 

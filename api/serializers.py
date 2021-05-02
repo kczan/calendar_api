@@ -38,6 +38,11 @@ class EventReadSerializer(serializers.ModelSerializer):
 
 class EventSerializer(serializers.ModelSerializer):
     owner = serializers.HiddenField(default=serializers.CurrentUserDefault())
+    participants = serializers.SlugRelatedField(
+        many=True,
+        slug_field='email',
+        queryset=CalendarUser.objects.all()
+    )
 
     class Meta:
         model = Event
