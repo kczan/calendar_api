@@ -43,8 +43,6 @@ curl --location --request POST 'https://127.0.0.1:8000/api/event/' \
 
 --data-raw '{
 
-"owner" : 1,
-
 "name": "Meeting name",
 
 "agenda": "Talking about important stuff",
