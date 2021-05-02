@@ -9,14 +9,19 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('calendar_event', '0001_initial'),
-        ('room', '0001_initial'),
+        ("calendar_event", "0001_initial"),
+        ("room", "0001_initial"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='event',
-            name='location',
-            field=models.ForeignKey(blank=True, on_delete=django.db.models.deletion.CASCADE, to='room.conferenceroom', verbose_name='event_location'),
+            model_name="event",
+            name="location",
+            field=models.ForeignKey(
+                blank=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                to="room.conferenceroom",
+                verbose_name="event_location",
+            ),
         ),
     ]

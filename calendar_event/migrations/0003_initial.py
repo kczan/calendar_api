@@ -10,19 +10,29 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('calendar_event', '0002_event_location'),
+        ("calendar_event", "0002_event_location"),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='event',
-            name='owner',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='event_owner', to=settings.AUTH_USER_MODEL, verbose_name='event_owner'),
+            model_name="event",
+            name="owner",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="event_owner",
+                to=settings.AUTH_USER_MODEL,
+                verbose_name="event_owner",
+            ),
         ),
         migrations.AddField(
-            model_name='event',
-            name='participants',
-            field=models.ManyToManyField(blank=True, related_name='event_participants', to=settings.AUTH_USER_MODEL, verbose_name='event_participants'),
+            model_name="event",
+            name="participants",
+            field=models.ManyToManyField(
+                blank=True,
+                related_name="event_participants",
+                to=settings.AUTH_USER_MODEL,
+                verbose_name="event_participants",
+            ),
         ),
     ]

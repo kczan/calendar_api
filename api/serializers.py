@@ -9,28 +9,31 @@ from user.models import CalendarUser
 
 SECONDS_IN_HOUR = 60 * 60
 
+
 class CalendarUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = CalendarUser
-        fields = ['username', 'email', 'password']
+        fields = ["username", "email", "password"]
 
 
 class CalendarUserReadSerializer(serializers.ModelSerializer):
     class Meta:
         model = CalendarUser
-        fields = ['id', 'first_name', 'last_name', 'username', 'email']
+        fields = ["id", "first_name", "last_name", "username", "email"]
 
 
 class ConferenceRoomSerializer(serializers.ModelSerializer):
     class Meta:
         model = ConferenceRoom
-        fields = '__all__'
+        fields = "__all__"
+
 
 class EventReadSerializer(serializers.ModelSerializer):
     location = ConferenceRoomSerializer()
+
     class Meta:
         model = Event
-        fields = '__all__'
+        fields = "__all__"
 
 
 class EventSerializer(serializers.ModelSerializer):
@@ -38,14 +41,18 @@ class EventSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Event
-        fields = '__all__'
+        fields = "__all__"
 
     def validate(self, data):
-        start_datetime = data['start']
-        end_datetime = data['end']
+        start_datetime = data["start"]
+        end_datetime = data["end"]
         if end_datetime < start_datetime:
-            raise ValidationError({'detail': 'A meeting has to end only after starting.'})
+            raise ValidationError(
+                {"detail": "A meeting has to end only after starting."}
+            )
         duration = end_datetime - start_datetime
         if duration.seconds > 8 * SECONDS_IN_HOUR:
-            raise ValidationError({'detail': 'A meeting cannot last longer than 8 hours.'})
+            raise ValidationError(
+                {"detail": "A meeting cannot last longer than 8 hours."}
+            )
         return data

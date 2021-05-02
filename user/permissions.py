@@ -12,6 +12,6 @@ class RegistrationPermission(permissions.BasePermission):
 
 class RegistrationAuthentication(TokenAuthentication):
     def authenticate(self, request):
-        if request.method == 'POST':
+        if request.method == "POST":
             return None
         return super().authenticate(request)
