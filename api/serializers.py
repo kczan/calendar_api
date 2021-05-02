@@ -1,6 +1,7 @@
 import datetime
+
 from rest_framework.exceptions import ValidationError
-from rest_framework.serializers import ModelSerializer, HiddenField, CurrentUserDefault
+from rest_framework import serializers
 
 from calendar_event.models import Event
 from room.models import ConferenceRoom
@@ -8,33 +9,32 @@ from user.models import CalendarUser
 
 SECONDS_IN_HOUR = 60 * 60
 
-
-class CalendarUserSerializer(ModelSerializer):
+class CalendarUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = CalendarUser
-        fields = '__all__'
+        fields = ['username', 'email', 'password']
 
 
-class CalendarUserReadSerializer(ModelSerializer):
+class CalendarUserReadSerializer(serializers.ModelSerializer):
     class Meta:
         model = CalendarUser
         fields = ['id', 'first_name', 'last_name', 'username', 'email']
 
 
-class ConferenceRoomSerializer(ModelSerializer):
+class ConferenceRoomSerializer(serializers.ModelSerializer):
     class Meta:
         model = ConferenceRoom
         fields = '__all__'
 
-class EventReadSerializer(ModelSerializer):
+class EventReadSerializer(serializers.ModelSerializer):
     location = ConferenceRoomSerializer()
     class Meta:
         model = Event
         fields = '__all__'
 
 
-class EventSerializer(ModelSerializer):
-    owner = HiddenField(default=CurrentUserDefault())
+class EventSerializer(serializers.ModelSerializer):
+    owner = serializers.HiddenField(default=serializers.CurrentUserDefault())
 
     class Meta:
         model = Event

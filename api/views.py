@@ -4,7 +4,10 @@ from django.db.models import Q
 from django.shortcuts import render
 from django_filters.rest_framework import DjangoFilterBackend
 
+from rest_framework import status
+from rest_framework.authtoken.models import Token
 from rest_framework.filters import SearchFilter
+from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 
 from api.serializers import CalendarUserSerializer, CalendarUserReadSerializer, ConferenceRoomSerializer, EventSerializer, EventReadSerializer
@@ -24,6 +27,14 @@ class CalendarUserAPIViewset(ModelViewSet):
         if self.request.method == 'GET':
             return CalendarUserReadSerializer
         return CalendarUserSerializer
+
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        user = serializer.instance
+        token, created = Token.objects.get_or_create(user=user)
+        return Response({'token': token.key, 'user': user.username}, status=status.HTTP_201_CREATED)
 
 
 class ConferenceRoomAPIViewset(ModelViewSet):

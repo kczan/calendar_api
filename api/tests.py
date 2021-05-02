@@ -1,6 +1,7 @@
 from django.urls import reverse
 
 from calendar_event.models import Event
+from room.models import ConferenceRoom
 from user.models import CalendarUser
 
 from rest_framework.authtoken.models import Token
